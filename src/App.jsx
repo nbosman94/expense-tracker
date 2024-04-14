@@ -2,6 +2,9 @@
 import Tracker from "./pages/Tracker"
 import {Routes, Route} from "react-router-dom"
 import ProfilePage from "./pages/ProfilePage"
+import OverviewPage from "./pages/OverviewPage"
+
+
 function App() {
   
 
@@ -9,6 +12,7 @@ function App() {
     <>
     <Routes>
       <Route path="/" element={<ProfilePage/>}/>
+      <Route path="/overview" element={<OverviewPage/>}/>
      
      </Routes>
     </>

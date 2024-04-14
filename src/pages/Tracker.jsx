@@ -30,7 +30,6 @@ const Tracker = () => {
     const handleAddExpense = () => {
       increaseTotal(amount);
       addExpense(amount, category);
-
     }
 
    
@@ -73,17 +72,14 @@ const Tracker = () => {
           pointerEvents='none'
           color='gray.300'
           fontSize='1.2em'
-          
-        >
+           >
           $
         </InputLeftElement>
         <Input placeholder='Enter amount' value={amount} onChange={e => setAmount(e.target.value)} />
-        
         <Select ml={2} placeholder='Select category' value={category} onChange={(e) => setCategory(e.target.value)}>
              {options.map((option, index) => (
             <option key={index}>{option}</option>
-          ))}
-          
+          ))} 
         </Select>
        <Button onClick={handleAddExpense} ml={2}>Add</Button>
       </InputGroup>

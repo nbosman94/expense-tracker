@@ -25,22 +25,14 @@ const ExpenseList = () => {
 
   return (
     <Flex>
-
     <Box  w='100%' p={4} >
-    
-
     <List>
       {expenseList.map(expense => (
-          <ListItem key={expense.id}>{expense.amount}{' '}{expense.category} 
-          
+          <ListItem key={expense.id}>{expense.amount}{' '}{expense.category}   
           <Button bg={"red.300"} ml={5} size={"sm"} onClick={() => handleDeleteExpense(expense.id, expense.amount)}>Delete</Button>
-          </ListItem>
-          
+          </ListItem>   
       ))}
-      
-      </List>
-
-      
+      </List>   
       </Box>
     </Flex>
   )
