@@ -1,22 +1,24 @@
 import React from 'react'
 import Tracker from './Tracker'
 import Sidebar from '../components/Sidebar'
-import { Flex, Box, Spacer} from '@chakra-ui/react'
+import { Flex, Box, Spacer, Container} from '@chakra-ui/react'
 
 const ProfilePage = () => {
   return (
     <>
-<Flex minWidth='max-content' alignItems='center' gap='2'>
-  <Box p='15'>
-  <Sidebar />
-  </Box>
-  <Spacer />
-  <Flex alignItems={"center"} justifyItems={"flex-start"}>
-  <Box p='15' position='relative'>
-  <Tracker/>
-  </Box>
-  </Flex>
-</Flex>
+    <Container maxW={"container.lg"}>
+      <Flex gap={20}>
+        <Box flex={2} py={10}>
+          <Tracker/>
+
+        </Box>
+
+        <Box>
+          {/* Could put another compenent here as functionality grows */}
+        </Box>
+      </Flex>
+    </Container>
+
 
     {/* items to use */}
     {/* <Sidebar />
