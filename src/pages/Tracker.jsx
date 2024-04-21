@@ -4,6 +4,7 @@ import ExpenseList from '../components/ExpenseList'
 import { useState } from 'react'
 import { useExpenseStore } from '../store/expenseStore'
 import { useTotalStore } from '../store/totalsStore'
+import { useCategoryStore } from '../store/categoryStore'
 
 
 
@@ -12,10 +13,12 @@ const Tracker = () => {
 
     const [amount, setAmount] = useState(0);
     // const [total, setTotal] = useState(0);
-    const options = ["Food", "Bills", "Petrol"];
 
-    // const [expenseList, setExpenseList] = useState([]);
-    const [category, setCategory] = useState(options[0]);
+    const {categoryOptions} = useCategoryStore((state) => ({
+      categoryOptions: state.categoryOptions
+    }))
+
+    const [category, setCategory] = useState(categoryOptions[0]);
 
     const {addExpense} = useExpenseStore((state)=>({
       addExpense: state.addExpense
@@ -77,7 +80,7 @@ const Tracker = () => {
         </InputLeftElement>
         <Input placeholder='Enter amount' value={amount} onChange={e => setAmount(e.target.value)} />
         <Select ml={2} placeholder='Select category' value={category} onChange={(e) => setCategory(e.target.value)}>
-             {options.map((option, index) => (
+             {categoryOptions.map((option, index) => (
             <option key={index}>{option}</option>
           ))} 
         </Select>

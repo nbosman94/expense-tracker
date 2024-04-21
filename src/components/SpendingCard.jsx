@@ -3,7 +3,7 @@ import { Card, CardHeader, Heading, CardBody, Text, CardFooter,Button } from '@c
 
 const SpendingCard = ({title, amount}) => {
   return (
-    <Card>
+    <Card p={2} m={4}>
                     <CardHeader>
                     <Heading size='md'> {title}</Heading>
                     </CardHeader>
