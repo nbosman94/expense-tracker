@@ -12,7 +12,6 @@ import { useCategoryStore } from '../store/categoryStore'
 
 const OverviewPage = () => {
 
-
     const {expenseList} = useExpenseStore((state) => ({
         expenseList: state.expenseList
     }))
