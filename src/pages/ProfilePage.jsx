@@ -9,20 +9,14 @@ const ProfilePage = () => {
     <Container maxW={"container.lg"}>
       <Flex gap={20}>
         <Box flex={2} py={10}>
-          <Tracker/>
-
+            <Tracker/>
         </Box>
-
         <Box>
           {/* Could put another compenent here as functionality grows */}
         </Box>
       </Flex>
     </Container>
 
-
-    {/* items to use */}
-    {/* <Sidebar />
-<Tracker/> */}
 </>
   )
 }

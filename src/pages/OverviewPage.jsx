@@ -1,4 +1,4 @@
-import { Flex, Box, Heading, Stack, Button } from '@chakra-ui/react'
+import { Flex, Box, Heading, Stack, Button, useDisclosure, ScaleFade } from '@chakra-ui/react'
 import React from 'react'
 import { useCallback } from 'react'
 import { useEffect, useState } from 'react'
@@ -11,6 +11,8 @@ import { useCategoryStore } from '../store/categoryStore'
 
 
 const OverviewPage = () => {
+
+  const {isOpen, onToggle} = useDisclosure()
 
     const {expenseList} = useExpenseStore((state) => ({
         expenseList: state.expenseList
@@ -35,23 +37,22 @@ const OverviewPage = () => {
       });
 
   return (
-   
-      <Flex flexDir={"column"} mt={20} alignContent={"center"} justifyContent={"center"}>
-          
-          <Flex alignContent={"center"} justifyContent={"center"} h={100} w={"100%"}>
-          <Heading as={"h2"} size="xl">Spending</Heading>
-          </Flex>
-
+    <>
+    <Flex flexDir={"column"} mt={20} alignContent={"center"} justifyContent={"center"}>
+      <Flex alignContent={"center"} justifyContent={"center"} h={100} w={"100%"}>
+        <Heading as={"h2"} size="xl">Spending</Heading>
+        </Flex>
           <Flex alignContent={"center"} justifyContent={"center"}>
                 <Flex mt={3} flexDir={"row"} alignContent={"center"} justifyContent={"center"}>
                     {Object.keys(categoryTotals).map(category => (
                         <SpendingCard key={category} title={category} amount={categoryTotals[category]}/>
                     ))}
                 </Flex>
-           
-            </Flex>
-            {/* <Button onClick={() => {console.log(expenseList); console.log(resultOfFoodAmount); console.log(totalAmountFromCategory)}}>Render Expenses</Button> */}
-      </Flex>
+           </Flex>
+        </Flex>
+      <Flex>
+    </Flex>
+      </>
     
   )
   
