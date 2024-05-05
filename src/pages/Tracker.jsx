@@ -1,11 +1,12 @@
 import React from 'react'
-import { Select, InputGroup, InputLeftElement, Button, Stack, Input, Text, Box, Flex, getToastPlacement, Spacer} from '@chakra-ui/react'
+import { Select, InputGroup, InputLeftElement, Button, Stack, Input, Text, Box, Flex, Modal, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalOverlay, Wrap, WrapItem, FormControl, FormLabel, getToastPlacement, Spacer}} from '@chakra-ui/react'
 import ExpenseList from '../components/ExpenseList';
 import { useState } from 'react';
 import { useExpenseStore } from '../store/expenseStore';
 import { useTotalStore } from '../store/totalsStore';
 import { useCategoryStore } from '../store/categoryStore';
 import useShowToast from '../hooks/useShowToast';
+import { useDisclosure } from '@chakra-ui/react';
 
 
 
@@ -13,13 +14,22 @@ import useShowToast from '../hooks/useShowToast';
 const Tracker = () => {
     const showToast = useShowToast();
     const [amount, setAmount] = useState(0);
-    // const [total, setTotal] = useState(0);
+    const OverlayOne = () => (
+    <ModalOverlay
+      bg='blackAlpha.400'
+      backdropFilter='blur(10px) hue-rotate(10deg)'
+    />
+    )
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [overlay, setOverlay] = useState(<OverlayOne />)
 
-    const {categoryOptions} = useCategoryStore((state) => ({
-      categoryOptions: state.categoryOptions
+    const {categoryOptions, addCategory} = useCategoryStore((state) => ({
+      categoryOptions: state.categoryOptions, 
+      addCategory: state.addCategory,
     }))
 
     const [category, setCategory] = useState(categoryOptions[0]);
+    const [categoryToAdd, setCategoryToAdd] = useState('');
 
     const {addExpense} = useExpenseStore((state)=>({
       addExpense: state.addExpense
@@ -35,29 +45,12 @@ const Tracker = () => {
       increaseTotal(amount);
       addExpense(amount, category);
       
-      
     }
 
-   
-    // const myCategories = [{name: "Food"}, {name: "Bills"}, {name: "Petrol"}]
-
-    // let expenseId = 0;
-
-    // const handleAddExpense = () => {
-    //     setExpenseList([
-    //         ...expenseList,
-    //         {id: expenseId++, expense: amount}
-    //     ])
-    // }
-    
-    // const handleAddAmount = () => {
-    //     setTotal(Number(total)+Number(amount))
-
-    //     setExpenseList([
-    //         ...expenseList,
-    //         {id: expenseId++, expense: amount, category: category}
-    //     ]);
-    // }
+    const handleAddCategory = () => {
+      addCategory(categoryToAdd);
+      onClose();
+    }
 
   return (
       <>
@@ -87,12 +80,42 @@ const Tracker = () => {
             <option key={index}>{option}</option>
           ))} 
         </Select>
-       <Button onClick={handleAddExpense} ml={2}>Add</Button>
+
+
+        <Wrap spacing={4}>
+        <WrapItem>
+        <Button onClick={handleAddExpense} ml={2} size={"md"} p={3}>Add Expense </Button>
+        <Button  variant='outline'  onClick={() => {
+          setOverlay(<OverlayOne />)
+          onOpen()
+        }}ml={2} size="md" p={3} > Add Category</Button>
+       </WrapItem>
+       </Wrap>
       </InputGroup>
     </Stack>  
 
 
       <ExpenseList/>
+
+
+      <Modal isCentered isOpen={isOpen} onClose={onClose}>
+        {overlay}
+        <ModalContent>
+          <ModalHeader>Add New Expense Category</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+
+            <FormControl mt={4}>
+              <FormLabel>Category</FormLabel>
+              <Input placeholder='Category' value={categoryToAdd} onChange={e => setCategoryToAdd(e.target.value)} />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={handleAddCategory} >Save</Button>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
     </>
   )

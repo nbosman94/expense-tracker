@@ -5,30 +5,26 @@ import { useTotalStore } from '../store/totalsStore';
 
 const ExpenseList = () => {
 
-
   const {expenseList, deleteExpense} = useExpenseStore((state)=>({
     expenseList: state.expenseList,
     deleteExpense: state.deleteExpense,
   }));
 
   const { decreaseTotal} = useTotalStore((state) => ({
-
     decreaseTotal: state.decreaseTotal
   }))
 
   const handleDeleteExpense = (expenseId, amount) => {
     deleteExpense(expenseId);
     decreaseTotal(amount);
-
   }
-
 
   return (
     <Flex>
-    <Box  w='100%' p={4} >
+    <Box  w='100%' p={4} mt={4} >
     <List>
       {expenseList.map(expense => (
-          <ListItem key={expense.id}>{expense.amount}{' '}{expense.category}   
+          <ListItem mt={3} key={expense.id}>{expense.amount}{' '}{expense.category}   
           <Button bg={"red.300"} ml={5} size={"sm"} onClick={() => handleDeleteExpense(expense.id, expense.amount)}>Delete</Button>
           </ListItem>   
       ))}
