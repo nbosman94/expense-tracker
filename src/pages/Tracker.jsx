@@ -1,16 +1,17 @@
 import React from 'react'
 import { Select, InputGroup, InputLeftElement, Button, Stack, Input, Text, Box, Flex, getToastPlacement, Spacer} from '@chakra-ui/react'
-import ExpenseList from '../components/ExpenseList'
-import { useState } from 'react'
-import { useExpenseStore } from '../store/expenseStore'
-import { useTotalStore } from '../store/totalsStore'
-import { useCategoryStore } from '../store/categoryStore'
+import ExpenseList from '../components/ExpenseList';
+import { useState } from 'react';
+import { useExpenseStore } from '../store/expenseStore';
+import { useTotalStore } from '../store/totalsStore';
+import { useCategoryStore } from '../store/categoryStore';
+import useShowToast from '../hooks/useShowToast';
 
 
 
 
 const Tracker = () => {
-
+    const showToast = useShowToast();
     const [amount, setAmount] = useState(0);
     // const [total, setTotal] = useState(0);
 
@@ -33,6 +34,8 @@ const Tracker = () => {
     const handleAddExpense = () => {
       increaseTotal(amount);
       addExpense(amount, category);
+      
+      
     }
 
    
