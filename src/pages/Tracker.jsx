@@ -1,23 +1,25 @@
 import React from 'react'
-import { Select, InputGroup, InputLeftElement, Button, Stack, Input, Text, Box, Flex, Modal, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalOverlay, Wrap, WrapItem, FormControl, FormLabel} from '@chakra-ui/react'
-import ExpenseList from '../components/ExpenseList'
-import { useState } from 'react'
-import { useExpenseStore } from '../store/expenseStore'
-import { useTotalStore } from '../store/totalsStore'
-import { useCategoryStore } from '../store/categoryStore'
-import { useDisclosure } from '@chakra-ui/react'
+import { Select, InputGroup, InputLeftElement, Button, Stack, Input, Text, Box, Flex, Modal, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalOverlay, Wrap, WrapItem, FormControl, FormLabel, getToastPlacement, Spacer}} from '@chakra-ui/react'
+import ExpenseList from '../components/ExpenseList';
+import { useState } from 'react';
+import { useExpenseStore } from '../store/expenseStore';
+import { useTotalStore } from '../store/totalsStore';
+import { useCategoryStore } from '../store/categoryStore';
+import useShowToast from '../hooks/useShowToast';
+import { useDisclosure } from '@chakra-ui/react';
+
+
+
 
 const Tracker = () => {
-
-  const OverlayOne = () => (
+    const showToast = useShowToast();
+    const [amount, setAmount] = useState(0);
+    const OverlayOne = () => (
     <ModalOverlay
       bg='blackAlpha.400'
       backdropFilter='blur(10px) hue-rotate(10deg)'
     />
-  )
-
-    const [amount, setAmount] = useState(0);
-
+    )
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [overlay, setOverlay] = useState(<OverlayOne />)
 
@@ -42,6 +44,7 @@ const Tracker = () => {
     const handleAddExpense = () => {
       increaseTotal(amount);
       addExpense(amount, category);
+      
     }
 
     const handleAddCategory = () => {
