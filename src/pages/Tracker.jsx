@@ -1,5 +1,5 @@
 import React from 'react'
-import { Select, InputGroup, InputLeftElement, Button, Stack, Input, Text, Box, Flex, Modal, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalOverlay, Wrap, WrapItem, FormControl, FormLabel, getToastPlacement, Spacer}} from '@chakra-ui/react'
+import { Select, InputGroup, InputLeftElement, Button, Stack, Input, Text, Box, Flex, Modal, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalOverlay, Wrap, WrapItem, FormControl, FormLabel, getToastPlacement, Spacer} from '@chakra-ui/react';
 import ExpenseList from '../components/ExpenseList';
 import { useState } from 'react';
 import { useExpenseStore } from '../store/expenseStore';
@@ -50,6 +50,7 @@ const Tracker = () => {
     const handleAddCategory = () => {
       addCategory(categoryToAdd);
       onClose();
+      showToast("Success", "Added New Category", "success");
     }
 
   return (
